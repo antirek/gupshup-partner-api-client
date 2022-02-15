@@ -8,6 +8,9 @@ class App {
     this.url = {
       ratings: `https://partner.gupshup.io/partner/app/${this.APP_ID}/ratings`,
       callback: `https://partner.gupshup.io/partner/app/${this.APP_ID}/callbackUrl`,
+      templates: `https://partner.gupshup.io/partner/app/${this.APP_ID}/templates`,
+      balance: `https://partner.gupshup.io/partner/app/${this.APP_ID}/wallet/balance`,
+      userStatus: `https://partner.gupshup.io/partner/app/${this.APP_ID}/userStatus`,
     };
 
     this.config = {
@@ -32,6 +35,14 @@ class App {
   };
 
   getRatings = async () => await axios.get(this.url.ratings, this.config);
+
+  getTemplates = async () => await axios.get(this.url.templates, this.config);
+
+  getBalance = async () => await axios.get(this.url.balance, this.config);
+
+  getUserStatus = async (phone) => {
+    return await axios.get(`${this.url.userStatus}?phone=${phone}`, this.config);
+  }
 
   setCallbackUrl = async (callbackUrl) => {
     const params = this.getUrlEncodedData({
